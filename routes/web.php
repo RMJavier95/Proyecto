@@ -24,6 +24,14 @@ Route::get('/principal', function () {
     return view('principal');
 });
 
+Route::get('/resenas', function () {
+    return view('resenas');
+});
+
+Route::get('/favorites', function () {
+    return view('favorites');
+});
+
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
 Route::post('/register', [RegisterController::class, 'store']);
 
@@ -37,7 +45,16 @@ Route::get('/{user:username}', [PostController::class, 'index'])->name('posts.in
 Route::get('/book/search', [BookController::class, 'search'])->name('book.search');
 Route::get('/book/{id}', [BookController::class, 'show'])->name('book.show');
 
-Route::get('/principal', [HomeController::class, 'index'])->name('book.home');
 
-Route::post('/favorites/{id}', [BookController::class, 'addToFavorites'])->name('favorites.store');
-Route::get('/favorites', [BookController::class, 'indexFav'])->name('favorites.show');
+Route::post('/favorites/{id}', [FavoriteController::class, 'store'])->name('favorites.store');
+Route::delete('/favorites/{favorite}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
+Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
+Route::get('/favorites/{id}', [FavoriteController::class, 'show'])->name('favorites.show');
+
+
+
+/*Route::post('/favorites/{id}', [FavoriteController::class, 'store'])->name('favorites.store');
+Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');*/
+
+Route::get('/principal', [HomeController::class, 'index'])->name('book.home');
+Route::get('/resena', [ResenaController::class, 'index'])->name('resena');

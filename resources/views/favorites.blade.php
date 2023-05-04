@@ -6,16 +6,27 @@
         <table class="table">
             <thead>
                 <tr>
+                    <th>Imagen</th>
                     <th>Título</th>
                     <th>Autor</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                @forelse ($favorites as $favorite)
+                @forelse ($books as $favorite)
                     <tr>
-                        <td>{{ $favorite->book->title }}</td>
-                        <td>{{ $favorite->book->author }}</td>
+                        <td>
+                            <div class="w-3/3 pr-8">
+                                <img class="rounded-lg shadow-md mb-4" src="{{ $favorite->volumeInfo->imageLinks->smallThumbnail }}" alt="{{ $favorite->volumeInfo->title }}">
+                            </div>
+                        </td>
+
+                        <td>{{ $favorite->volumeInfo->title }}</td>
+                        <td>
+                            @if (isset($favorite->volumeInfo->authors))
+                                <p class="text-lg font-bold mb-2"> {{ implode(', ', $favorite->volumeInfo->authors) }}</p>
+                             @endif
+                        </td>
                         <td>
                             <form method="POST" action="{{ route('favorites.destroy', $favorite->id) }}">
                                 @csrf

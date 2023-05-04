@@ -16,4 +16,9 @@ class Book extends Model
         'cover_image',
         'google_books_id',
     ];
+
+    public function favorites(){
+
+        return $this->hasMany(Favorite::class);
+    }
 }
