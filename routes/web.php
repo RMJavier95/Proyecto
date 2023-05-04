@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\RegisterController;
 
 /*
@@ -34,7 +35,9 @@ Route::get('/{user:username}', [PostController::class, 'index'])->name('posts.in
 
 
 Route::get('/book/search', [BookController::class, 'search'])->name('book.search');
-
 Route::get('/book/{id}', [BookController::class, 'show'])->name('book.show');
 
 Route::get('/principal', [HomeController::class, 'index'])->name('book.home');
+
+Route::post('/favorites/{id}', [BookController::class, 'addToFavorites'])->name('favorites.store');
+Route::get('/favorites', [BookController::class, 'indexFav'])->name('favorites.show');

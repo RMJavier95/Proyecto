@@ -19,6 +19,6 @@ class LoginController extends Controller
         if(!auth()->attempt($request->only('email', 'password'), $request->remember)){
             return back()->with('mensaje', 'Datos Incorrectos');
         }
-        return redirect()->route('posts.index');
+        return redirect()->route('posts.index', ['user' => auth()->user()->username]);
     }
 }
