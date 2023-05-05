@@ -8,6 +8,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,14 +48,14 @@ Route::get('/book/{id}', [BookController::class, 'show'])->name('book.show');
 
 
 Route::post('/favorites/{id}', [FavoriteController::class, 'store'])->name('favorites.store');
-Route::delete('/favorites/{favorite}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
 Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
 Route::get('/favorites/{id}', [FavoriteController::class, 'show'])->name('favorites.show');
+Route::delete('/favorites/{id}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
 
-
-
-/*Route::post('/favorites/{id}', [FavoriteController::class, 'store'])->name('favorites.store');
-Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');*/
 
 Route::get('/principal', [HomeController::class, 'index'])->name('book.home');
-Route::get('/resena', [ResenaController::class, 'index'])->name('resena');
+
+
+Route::get('/book/{id}/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
+Route::post('/book/{id}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+

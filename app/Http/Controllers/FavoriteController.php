@@ -23,10 +23,11 @@ class FavoriteController extends Controller
         return redirect()->back()->with('success', 'Libro agregado a favoritos');
     }
 
-    public function destroy(Favorite $favorite){
+    public function destroy($id){
 
+        $favorite = Favorite::where('book_id', $id)->firstOrFail();
         $favorite->delete();
-        return redirect()->back()->with('success', 'Libro eliminado de favoritos');
+        return redirect()->route('favorites.index')->with('success', 'El libro ha sido eliminado de tus favoritos.');
     }
 
     public function index(){
@@ -43,7 +44,7 @@ class FavoriteController extends Controller
     }
 
     public function show($id){
-
+        
         // Obtener el registro de favorito correspondiente al usuario actual y al libro seleccionado
         $favorite = Favorite::where('user_id', auth()->id())->findOrFail($id);
 

@@ -31,7 +31,9 @@
                             <form method="POST" action="{{ route('favorites.destroy', $favorite->id) }}">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                                <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                                    Eliminar
+                                </button>
                             </form>
                         </td>
                     </tr>

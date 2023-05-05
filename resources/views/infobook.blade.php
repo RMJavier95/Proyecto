@@ -21,8 +21,7 @@
             <div class="mt-6">
                 <a href="{{ $book->volumeInfo->previewLink }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Ver en Google Books</a>
             </div>
-            <p>{{$book->id}}</p>
-            
+                        
             @auth
                 <form method="POST" action="{{ route('favorites.store', $book->id) }}" class="mt-4">
                     @csrf
@@ -30,6 +29,11 @@
                         Agregar a Favoritos
                     </button>
                 </form>
+
+                <div class="mt-6">
+                    <a href="{{ route('reviews.create', $book->id) }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">Hacer reseña</a>
+                </div>
+                
             @endauth
         </div>
     </div>
