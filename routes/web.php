@@ -57,5 +57,5 @@ Route::get('/principal', [HomeController::class, 'index'])->name('book.home');
 
 
 Route::get('/book/{id}/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
-Route::post('/book/{id}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+Route::post('/books/{book_id}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
 
