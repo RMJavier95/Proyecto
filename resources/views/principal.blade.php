@@ -23,9 +23,6 @@
             <h2 class="text-2xl font-bold mb-4">Últimas noticias</h2>
             @foreach($latestNews as $news)
             <div class="bg-white rounded-lg shadow-lg mb-4">
-                
-                    
-                
                 <div class="p-4">
                     <h3 class="font-bold text-lg">{{$news['title']}}</h3>
                     
@@ -39,7 +36,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 @forelse($latestReviews as $review)
                     <div class="mb-3">
-                        <h5 class="card-title">{{ $review->volumeInfo->title }}</h5>
+                        <h5 class="card-title">{{ $review->book_name }}</h5>
                         
                         <p class="card-text">{{ $review->body }}</p>
                         <h6 class="card-subtitle mb-2 text-muted">{{ $review->user->name}}</h6>

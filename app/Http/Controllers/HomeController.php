@@ -21,13 +21,27 @@ class HomeController extends Controller
         return view('principal', compact('books', 'latestReviews', 'randomBooks','latestNews'));
     }
 
-    private function getBooks($bookIds){
+    
+    private function getBooks($bookIds) {
+        $client = new Client();
+        $books = [];
+        foreach ($bookIds as $id) {
+            $response = $client->get('https://www.googleapis.com/books/v1/volumes/' . $id, [
+                'query' => [
+                    'key' => 'AIzaSyAeOxxD7y-PW0paFmKIRCtNcTTjLfBLCPI',
+                ],
+            ]);
 
-        return Http::get('https://www.googleapis.com/books/v1/volumes', [
-            'q' => 'id:' . implode(',', $bookIds),
-            'key' => 'AIzaSyAeOxxD7y-PW0paFmKIRCtNcTTjLfBLCPI',
-        ])->json()['items'];
-        
+            $book = json_decode($response->getBody(), true);
+            if(isset($book['error'])) {
+                // manejar error en caso de que no exista el libro
+                continue;
+            }
+
+            $books[] = $book;
+        }
+
+    return $books;
     }
 
     private function getRandomBooks()
@@ -66,6 +80,24 @@ class HomeController extends Controller
     }
 
     private function getLatestReviews($books){
+        $bookIds = collect($books)->pluck('id');
+        $reviews = Review::with('user', 'book')
+            ->whereIn('book_id', $bookIds)
+            ->orderBy('created_at', 'desc')
+            ->take(6)
+            ->get();
+    
+        $reviews = $reviews->map(function ($review) use ($books) {
+            $book = collect($books)->where('id', $review->book_id)->first();
+            $review->book_name = $book ? $book['volumeInfo']['title'] : '';
+    
+            return $review;
+        });
+    
+        return $reviews;
+    }
+
+    /*private function getLatestReviews($books){
         
         $bookIds = collect($books)->pluck('id');
         $reviews = Review::with('user', 'book')
@@ -83,5 +115,5 @@ class HomeController extends Controller
         });
         
         return $reviews;
-    }
+    }*/
 }
