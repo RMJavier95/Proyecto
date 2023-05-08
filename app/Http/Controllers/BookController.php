@@ -22,7 +22,7 @@ class BookController extends Controller
         ]); // Hacer una solicitud a la API de Google Books con el término de búsqueda y la API Key
 
         $books = json_decode($response->getBody()->getContents()); // Decodifica la respuesta JSON
-
+        
         return view('book', compact('books'));
         //return json_decode($response->getBody());
         //return new JsonResponse($response);

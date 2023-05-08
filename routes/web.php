@@ -53,7 +53,11 @@ Route::get('/favorites/{id}', [FavoriteController::class, 'show'])->name('favori
 Route::delete('/favorites/{id}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
 
 
-Route::get('/principal', [HomeController::class, 'index'])->name('book.home');
+Route::get('/principal', [HomeController::class, 'index'])->name('home');
+Route::get('/books', [HomeController::class, 'books'])->name('books');
+Route::get('/news', [HomeController::class, 'news'])->name('news');
+Route::get('/reviews', [HomeController::class, 'reviews'])->name('reviews');
+Route::get('/random-books', [HomeController::class, 'randomBooks'])->name('random-books');
 
 
 Route::get('/book/{id}/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');

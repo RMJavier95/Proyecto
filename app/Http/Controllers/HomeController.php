@@ -2,24 +2,48 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Review;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Collection;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        // Obtener API
-        $randomBooks = Http::get('https://www.googleapis.com/books/v1/volumes', [
-            'q' => 'subject:fiction',
+        $bookIds = Review::pluck('book_id')->toArray();
+        $books = $this->getBooks($bookIds);
+        $randomBooks = $this->getRandomBooks();
+        $latestNews = $this->getLatestNews();
+        $latestReviews = $this->getLatestReviews($books);
+
+        return view('principal', compact('books', 'latestReviews', 'randomBooks','latestNews'));
+    }
+
+    private function getBooks($bookIds){
+
+        return Http::get('https://www.googleapis.com/books/v1/volumes', [
+            'q' => 'id:' . implode(',', $bookIds),
+            'key' => 'AIzaSyAeOxxD7y-PW0paFmKIRCtNcTTjLfBLCPI',
+        ])->json()['items'];
+        
+    }
+
+    private function getRandomBooks()
+    {
+        return Http::get('https://www.googleapis.com/books/v1/volumes', [
+            'q' => 'categories:all',
             'maxResults' => 4,
             'orderBy' => 'relevance',
             'langRestrict' => 'en',
             'key' => 'AIzaSyAeOxxD7y-PW0paFmKIRCtNcTTjLfBLCPI',
         ])->json()['items'];
+    }
 
-        // Obtener noticias (ejemplo)
-        $latestNews = [
+    private function getLatestNews()
+    {
+        return [
             [
                 'title' => 'Nueva librería abre sus puertas en el centro de la ciudad',
                 'description' => 'La nueva librería ofrece una amplia selección de libros de diferentes géneros.',
@@ -39,29 +63,25 @@ class HomeController extends Controller
                 'date' => '2023-04-25'
             ]
         ];
+    }
 
-        // Obtener reseñas (ejemplo)
-        $latestReviews = [
-            [
-                'title' => 'Excelente libro, muy recomendado',
-                'description' => 'Me encantó este libro, tiene una trama muy interesante y los personajes son muy bien desarrollados.',
-                'rating' => 4.5,
-                'user' => 'Juan Perez'
-            ],
-            [
-                'title' => 'No me gustó este libro',
-                'description' => 'No logré conectarme con la historia y encontré algunos de los personajes un poco planos.',
-                'rating' => 2,
-                'user' => 'Maria Rodriguez'
-            ],
-            [
-                'title' => 'Un libro entretenido',
-                'description' => 'Este libro fue una buena lectura para pasar el tiempo, pero no creo que lo vuelva a leer.',
-                'rating' => 3,
-                'user' => 'Pedro Sanchez'
-            ]
-        ];
+    private function getLatestReviews($books){
+        
+        $bookIds = collect($books)->pluck('id');
+        $reviews = Review::with('user', 'book')
+            ->whereIn('book_id', $bookIds)
+            ->orderBy('created_at', 'desc')
+            ->take(6)
+            ->get();
+        
+        // Hacer una petición a la API de Google Books para obtener los detalles de cada libro
+        $reviews->each(function ($review) {
+            $book = Http::get('https://www.googleapis.com/books/v1/volumes/' . $review->book_id)
+                ->json();
 
-        return view('principal', compact('randomBooks', 'latestNews', 'latestReviews'));
+            $review->book_name = $book['volumeInfo']['title'];
+        });
+        
+        return $reviews;
     }
 }
