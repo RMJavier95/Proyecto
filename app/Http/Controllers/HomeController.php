@@ -96,24 +96,4 @@ class HomeController extends Controller
     
         return $reviews;
     }
-
-    /*private function getLatestReviews($books){
-        
-        $bookIds = collect($books)->pluck('id');
-        $reviews = Review::with('user', 'book')
-            ->whereIn('book_id', $bookIds)
-            ->orderBy('created_at', 'desc')
-            ->take(6)
-            ->get();
-        
-        // Hacer una petición a la API de Google Books para obtener los detalles de cada libro
-        $reviews->each(function ($review) {
-            $book = Http::get('https://www.googleapis.com/books/v1/volumes/' . $review->book_id)
-                ->json();
-
-            $review->book_name = $book['volumeInfo']['title'];
-        });
-        
-        return $reviews;
-    }*/
 }

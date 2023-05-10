@@ -6,9 +6,10 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\UserReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,8 +26,8 @@ Route::get('/principal', function () {
     return view('principal');
 });
 
-Route::get('/resenas', function () {
-    return view('resenas');
+Route::get('/user-review', function () {
+    return view('user-review');
 });
 
 Route::get('/favorites', function () {
@@ -61,5 +62,13 @@ Route::get('/random-books', [HomeController::class, 'randomBooks'])->name('rando
 
 
 Route::get('/book/{id}/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
+Route::get('/book/{id}/reviews/edit', [ReviewController::class, 'edit'])->name('reviews.edit');
 Route::post('/books/{book_id}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+
+
+Route::delete('/reviews/{book_id}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
+Route::get('/reviews/{review}/edit', [ReviewController::class, 'edit'])->name('reviews.edit');
+/*Hacer ruta de update*/
+
+Route::get('/user-review', [UserReviewController::class, 'index'])->name('user-review.index');
 
