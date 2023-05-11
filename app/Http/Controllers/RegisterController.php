@@ -19,7 +19,7 @@ class RegisterController extends Controller
         //Modificar el request para que no aparezca la pagina de error de laravel y si un mensaje
         $request->request->add(['username' => Str::slug($request->username)]);
 
-        //Validacion
+        //Validación
         $this->validate($request, [
             'name' => 'required|min:5|max:20',
             'username' => 'required|unique:users|min:5|max:20',

@@ -17,7 +17,7 @@ class BookController extends Controller
         $response = $client->request('GET', 'https://www.googleapis.com/books/v1/volumes', [
             'query' => [
                 'q' => $query,
-                'key' => 'AIzaSyAeOxxD7y-PW0paFmKIRCtNcTTjLfBLCPI',
+                'key' => env('GOOGLE_BOOKS_API_KEY'),
             ]
         ]); // Hacer una solicitud a la API de Google Books con el término de búsqueda y la API Key
 

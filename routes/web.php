@@ -62,13 +62,14 @@ Route::get('/random-books', [HomeController::class, 'randomBooks'])->name('rando
 
 
 Route::get('/book/{id}/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
-Route::get('/book/{id}/reviews/edit', [ReviewController::class, 'edit'])->name('reviews.edit');
+Route::get('/book/{book_id}/reviews/{id}/edit', [ReviewController::class, 'edit'])->name('reviews.edit');
 Route::post('/books/{book_id}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
 
 
 Route::delete('/reviews/{book_id}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
-Route::get('/reviews/{review}/edit', [ReviewController::class, 'edit'])->name('reviews.edit');
-/*Hacer ruta de update*/
+/*Route::get('/reviews/{review}/edit', [ReviewController::class, 'edit'])->name('reviews.edit');*/
+Route::put('/books/{book_id}/reviews/{id}/update', [ReviewController::class, 'update'])->name('reviews.update');
+
 
 Route::get('/user-review', [UserReviewController::class, 'index'])->name('user-review.index');
 

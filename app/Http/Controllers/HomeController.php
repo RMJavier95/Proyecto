@@ -28,7 +28,7 @@ class HomeController extends Controller
         foreach ($bookIds as $id) {
             $response = $client->get('https://www.googleapis.com/books/v1/volumes/' . $id, [
                 'query' => [
-                    'key' => 'AIzaSyAeOxxD7y-PW0paFmKIRCtNcTTjLfBLCPI',
+                    'key' => env('GOOGLE_BOOKS_API_KEY'),
                 ],
             ]);
 
@@ -51,7 +51,7 @@ class HomeController extends Controller
             'maxResults' => 4,
             'orderBy' => 'relevance',
             'langRestrict' => 'en',
-            'key' => 'AIzaSyAeOxxD7y-PW0paFmKIRCtNcTTjLfBLCPI',
+            'key' => env('GOOGLE_BOOKS_API_KEY'),
         ])->json()['items'];
     }
 

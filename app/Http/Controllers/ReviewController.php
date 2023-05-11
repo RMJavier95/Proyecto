@@ -19,12 +19,12 @@ class ReviewController extends Controller
         return view('review-create', compact('book'));
     }
 
-    public function edit($bookId){
+    public function edit($book_id, $id){
         
-        $response = Http::get('https://www.googleapis.com/books/v1/volumes/' . $bookId);
+        $response = Http::get('https://www.googleapis.com/books/v1/volumes/' . $book_id);
         $book = json_decode($response->body());
         
-        return view('review-edit', compact('book'));
+        return view('review-edit', compact('book','id'));
     }
 
     public function store(Request $request, $book_id){
@@ -56,26 +56,20 @@ class ReviewController extends Controller
         return redirect()->route('book.show', $book_id)->with('success', 'La revisión ha sido guardada');
     }
 
-    /*public function edit(Review $review){
-
-        // Verificar si el usuario autenticado es el dueño de la reseña
-        if(auth()->id() !== $review->user_id) {
-            abort(403, 'No tienes permiso para editar esta reseña.');
-        }
-
-        return view('edit-review', compact('review'));
-    }*/
-
-    public function update(Request $request, Review $review){
-
-        $validatedData = $request->validate([
-            'body' => 'required|string|max:1000',
+    public function update(Request $request, $book_id, $id){
+        
+        $validatedData = $this->validate($request, [
+            'body' => 'required|string',
         ]);
-
-        $review->update($validatedData);
-
-        return redirect()->route('user-review.index')->with('success', 'Reseña actualizada correctamente.');
+    
+        $review = Review::findOrFail($id); // encontrar la reseña por su id
+    
+        $review->body = $validatedData['body'];
+        $review->save();
+    
+        return redirect()->route('user-review.index')->with('success', 'La reseña ha sido actualizada');
     }
+    
 
     public function destroy(Review $review, $book_id){
         

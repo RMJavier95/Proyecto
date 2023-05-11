@@ -13,8 +13,9 @@
             @endif
         </div>
         <div class="w-2/3">
-            <form method="POST" action="{{ route('reviews.update', $book->id) }}">
+            <form method="POST" action="{{ route('reviews.update', ['book_id' => $book->id, 'id' => $id]) }}">
                 @csrf
+                @method('PUT')
                 <div class="mb-4">
                     <label class="block text-gray-700 font-bold mb-2" for="body">
                         Reseña

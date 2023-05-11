@@ -1,7 +1,11 @@
 @extends('layouts.app')
 
 @section('titulo')
-    Página principal
+
+    <section class="w-screen h-30 flex flex-col justify-center items-center bg-gradient-to-b from-slate-900 via-slate-400 to-gray-50">
+        <p class="text-white">Página principal</p>
+    </section>
+    
 @endsection
 
 @section('contenido')

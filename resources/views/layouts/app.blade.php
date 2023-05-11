@@ -102,7 +102,7 @@
 
       </header>
 
-      <main class = "container mx-auto mt-10">
+      <main class = "container mx-auto">
         <h2 class = "text-gray-900 text-center text-3xl font-bold mb-10">
           @yield('titulo')
         </h2>
