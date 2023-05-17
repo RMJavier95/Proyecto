@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\User;
+use Illuminate\Http\Request;
+
+class ProfileController extends Controller
+{
+    public function show(User $user){
+        
+        $favoritesCount = $user->favorites()->count();
+        $reviewsCount = $user->reviews()->count();
+
+        return view('dashboard', compact('user', 'favoritesCount', 'reviewsCount'));
+    }
+}
+
+    

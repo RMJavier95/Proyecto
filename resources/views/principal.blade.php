@@ -2,16 +2,16 @@
 
 @section('titulo')
 
-    <section class="w-screen h-30 flex flex-col justify-center items-center bg-gradient-to-b from-slate-900 via-slate-400 to-gray-50">
-        <p class="text-white">Página principal</p>
-    </section>
+    
+    <p class="text-white">Página principal</p>
+    
     
 @endsection
 
 @section('contenido')
     <div class="container mx-auto py-8">
         <div class="mb-8">
-            <h2 class="text-2xl font-bold mb-4">Libros aleatorios</h2>
+            <h2 class="text-2xl font-bold mb-4">Últimos libros</h2>
             <div class="flex flex-wrap justify-center">
                 @foreach ($randomBooks as $book)
                     <li>{{ $book['volumeInfo']['title'] }}</li>

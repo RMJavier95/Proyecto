@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Review;
 use App\Models\Favorite;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
@@ -46,5 +47,9 @@ class User extends Authenticatable{
     public function favorites(){
         
         return $this->hasMany(Favorite::class);
+    }
+    public function reviews(){
+        
+        return $this->hasMany(Review::class);
     }
 }

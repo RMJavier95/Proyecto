@@ -7,6 +7,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserReviewController;
@@ -33,6 +34,13 @@ Route::get('/user-review', function () {
 Route::get('/favorites', function () {
     return view('favorites');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+});
+
+Route::get('/dashboard', [ProfileController::class, 'index'])->name('dashboard.index');
+Route::get('/dashboard/{user:username}', [ProfileController::class, 'show'])->name('dashboard.show');
 
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
 Route::post('/register', [RegisterController::class, 'store']);
@@ -67,9 +75,10 @@ Route::post('/books/{book_id}/reviews', [ReviewController::class, 'store'])->nam
 
 
 Route::delete('/reviews/{book_id}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
-/*Route::get('/reviews/{review}/edit', [ReviewController::class, 'edit'])->name('reviews.edit');*/
 Route::put('/books/{book_id}/reviews/{id}/update', [ReviewController::class, 'update'])->name('reviews.update');
 
 
 Route::get('/user-review', [UserReviewController::class, 'index'])->name('user-review.index');
+
+
 

@@ -45,7 +45,7 @@
 
             @auth
               <div class="flex gap-2 items-center">
-                <a href="{{route('posts.index', ['user' => auth()->user()->username])}}" class="text-sm mx-4 text-gray-900 dark:text-white hover:text-blue-700">
+                <a href="{{route('dashboard.show', ['user' => auth()->user()->username])}}" class="text-sm mx-4 text-gray-900 dark:text-white hover:text-blue-700">
                   Hola: <span class="font-normal">{{ auth()->user()->username }}</span>
                 </a>
 
