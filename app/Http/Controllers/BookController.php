@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use GuzzleHttp\Client;
-use Illuminate\Http\JsonResponse;
 use App\Models\Book;
+use App\Models\Review;
+use GuzzleHttp\Client;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
 {
@@ -34,7 +36,15 @@ class BookController extends Controller
         $response = $client->get("https://www.googleapis.com/books/v1/volumes/{$id}");
         $book = json_decode((string)$response->getBody());
 
-        return view('infobook', compact('book'));
+        $userHasReview = false;
+        if (Auth::check()) {
+            $review = Review::where('book_id', $id)
+                ->where('user_id', Auth::id())
+                ->first();
+            $userHasReview = $review ? true : false;
+        }
+
+    return view('infobook', compact('book', 'userHasReview'));
     }
 
 }

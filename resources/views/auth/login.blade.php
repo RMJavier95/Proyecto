@@ -8,7 +8,7 @@
     <div class = "md:flex">
         <div class="md:w-1/3">
         </div>
-        <div class="md:w-1/3 bg-gray-200 p-6 rounded-lg">
+        <div class="md:w-1/3 bg-gray-300 p-6 rounded-lg">
             <form method="POST" action="{{ route('login') }}"  novalidate>
                 @csrf
 

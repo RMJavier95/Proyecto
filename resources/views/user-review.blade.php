@@ -5,12 +5,13 @@
             <h2 class="text-2xl font-bold mb-4">Reseñas de <span class="font-normal">{{ auth()->user()->username }}</span></h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 @forelse($reviews as $review)
-                    <div class="mb-3">
+                    <div class="m-3 p-3 bg-gray-100 rounded-lg shadow-lg">
                         <h5 class="card-title">{{ $review->book_name }}</h5>
-                        
-                        <p class="card-text">{{ $review->body }}</p>
+                        <br>
+                        <p class="card-text"><em><q>{{ $review->body }}</q></em></p>
+                        <br>
                         <h6 class="card-subtitle mb-2 text-muted">{{ $review->user->name}}</h6>
-
+                        <br><br>
                         <form method="POST" action="{{ route('reviews.destroy', $review->id) }}">
                             @csrf
                             @method('DELETE')

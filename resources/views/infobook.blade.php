@@ -30,9 +30,15 @@
                     </button>
                 </form>
 
-                <div class="mt-6">
-                    <a href="{{ route('reviews.create', $book->id) }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">Hacer reseña</a>
-                </div>
+                
+                @if ($userHasReview)
+                    <p class="mt-6 text-gray-500 italic">Ya has realizado una reseña para este libro.</p>
+                @else
+                    <div class="mt-6">
+                        <a href="{{ route('reviews.create', $book->id) }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">Hacer reseña</a>
+                    </div>
+                @endif
+                
                 
             @endauth
         </div>

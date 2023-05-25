@@ -23,7 +23,7 @@ use App\Http\Controllers\UserReviewController;
 |
 */
 
-Route::get('/principal', function () {
+Route::get('/', function () {
     return view('principal');
 });
 
@@ -62,7 +62,7 @@ Route::get('/favorites/{id}', [FavoriteController::class, 'show'])->name('favori
 Route::delete('/favorites/{id}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
 
 
-Route::get('/principal', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/books', [HomeController::class, 'books'])->name('books');
 Route::get('/news', [HomeController::class, 'news'])->name('news');
 Route::get('/reviews', [HomeController::class, 'reviews'])->name('reviews');

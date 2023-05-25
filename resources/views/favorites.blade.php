@@ -2,8 +2,8 @@
 
 @section('contenido')
     <div class="container">
-        <h1>Mis Libros Favoritos</h1>
-        <table class="table">
+        <h2 class="text-2xl font-bold mb-4">Favoritos de <span class="font-normal">{{ auth()->user()->username }}</span></h2>
+        <table class="table w-full">
             <thead>
                 <tr>
                     <th>Imagen</th>
@@ -15,19 +15,19 @@
             <tbody>
                 @forelse ($books as $favorite)
                     <tr>
-                        <td>
+                        <td class="text-center">
                             <div class="w-3/3 pr-8">
                                 <img class="rounded-lg shadow-md mb-4" src="{{ $favorite->volumeInfo->imageLinks->smallThumbnail }}" alt="{{ $favorite->volumeInfo->title }}">
                             </div>
                         </td>
 
-                        <td>{{ $favorite->volumeInfo->title }}</td>
-                        <td>
+                        <td class="text-center">{{ $favorite->volumeInfo->title }}</td>
+                        <td class="text-center">
                             @if (isset($favorite->volumeInfo->authors))
                                 <p class="text-lg font-bold mb-2"> {{ implode(', ', $favorite->volumeInfo->authors) }}</p>
                              @endif
                         </td>
-                        <td>
+                        <td class="text-center">
                             <form method="POST" action="{{ route('favorites.destroy', $favorite->id) }}">
                                 @csrf
                                 @method('DELETE')

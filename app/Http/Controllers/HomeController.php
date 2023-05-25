@@ -48,7 +48,7 @@ class HomeController extends Controller
     {
         return Http::get('https://www.googleapis.com/books/v1/volumes', [
             'q' => 'categories:all',
-            'maxResults' => 4,
+            'maxResults' => 6,
             'orderBy' => 'relevance',
             'langRestrict' => 'en',
             'key' => env('GOOGLE_BOOKS_API_KEY'),
@@ -59,22 +59,25 @@ class HomeController extends Controller
     {
         return [
             [
-                'title' => 'Nueva librería abre sus puertas en el centro de la ciudad',
-                'description' => 'La nueva librería ofrece una amplia selección de libros de diferentes géneros.',
-                'image' => 'https://via.placeholder.com/300x200',
-                'date' => '2023-04-30'
+                'title' => 'Haruki Murakami, Premio Princesa de Asturias de las Letras 2023',
+                'description' => '',
+                'image' => 'https://www.publico.es/files/article_main/uploads/2023/05/24/646de325aa9fa.jpeg',
+                'date' => '2023-04-30',
+                'link' => 'https://www.publico.es/culturas/haruki-murakami-premio-princesa-letras-2023.html#analytics-seccion:listado'
             ],
             [
-                'title' => 'Presentan nueva novela del autor X',
-                'description' => 'La nueva novela del autor X promete ser un éxito de ventas.',
-                'image' => 'https://via.placeholder.com/300x200',
-                'date' => '2023-04-28'
+                'title' => 'Brandon Sanderson desvela cuáles de sus novelas quiere ver adaptadas como series y películas',
+                'description' => '',
+                'image' => 'https://media.vandalsports.com/i/1706x960/5-2023/20235412330_1.jpg.webp',
+                'date' => '2023-04-30',
+                'link' => 'https://vandal.elespanol.com/noticia/r20552/brandon-sanderson-desvela-cuales-de-sus-novelas-quiere-ver-adaptadas-como-series-y-peliculas'
             ],
             [
-                'title' => 'Concurso de poesía en la biblioteca pública',
-                'description' => 'La biblioteca pública organiza un concurso de poesía para fomentar la creatividad y el amor por la literatura.',
-                'image' => 'https://via.placeholder.com/300x200',
-                'date' => '2023-04-25'
+                'title' => 'George R. R. Martin afirma que la huelga de guionistas no retrasará (más) Vientos de invierno',
+                'description' => '',
+                'image' => 'https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/media/image/2023/05/george-rr-martin-3028106.jpg?tf=1200x',
+                'date' => '2023-04-30',
+                'link' => 'https://www.hobbyconsolas.com/noticias/george-r-r-martin-no-retrasara-vientos-invierno-huelga-guionistas-1248540'
             ]
         ];
     }
