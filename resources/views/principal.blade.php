@@ -13,8 +13,8 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
               @foreach ($randomBooks as $book)
                 <div class="w-full mx-auto">
-                  <h1>{{ $book['volumeInfo']['title'] }}</h1>
-                  <div class="shadow-lg h-64 w-40 sm:w-48 md:w-56 lg:w-64 xl:w-72 object-cover rounded-lg overflow-hidden bg-red-400 cursor-pointer rounded-xl relative group">
+                  <h1 class="text-center my-4">{{ $book['volumeInfo']['title'] }}</h1>
+                  <div class="shadow-lg h-64 w-40 sm:w-48 md:w-56 lg:w-64 xl:w-72 object-cover rounded-lg overflow-hidden bg-red-400 cursor-pointer rounded-xl relative group mx-auto">
                     <a href="{{route('book.show', $book['id'])}}">
                       <img class="h-full w-full object-cover rounded-lg shadow-md group-hover:scale-110 transition duration-300 ease-in-out" src="{{ $book['volumeInfo']['imageLinks']['smallThumbnail'] }}" alt="{{ $book['volumeInfo']['title'] }}">
                     </a>
